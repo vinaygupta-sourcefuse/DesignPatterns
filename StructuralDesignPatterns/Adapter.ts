@@ -1,28 +1,29 @@
-class OldSystem{
-    request():string{
-        return "Old System Request";
+//The Adapter pattern allows incompatible interfaces to work together by converting one interface into another expected by the client.
+
+// Existing XML-based service
+class XMLService {
+    getDataInXML() {
+      return "<book><title>Design Patterns</title></book>";
     }
-} 
-
-class NewSystem{
-    specificeRequest():string{
-        return "New System Request";
+  }
+  
+  // Adapter to convert XML to JSON
+  class JSONAdapter {
+    private xmlService: XMLService;
+  
+    constructor(xmlService: XMLService) {
+      this.xmlService = xmlService;
     }
-}
-
-class Adapter extends OldSystem{
-    private newSystem:NewSystem;
-    constructor(){
-        super(); // Call the parent constructor
-        this.newSystem = new NewSystem(); // has a replation
+  
+    getDataInJSON() {
+      const xmlData = this.xmlService.getDataInXML();
+      // Converting XML to JSON (simulated)
+      return { book: { title: "Design Patterns" } };
     }
-
-    request():string{
-        return this.newSystem.specificeRequest();
-    }
-}
-
-
-const adapter = new Adapter()
-console.log(adapter.request()) // New Specific Request
-
+  }
+  
+  // Client Code
+  const xmlService = new XMLService();
+  const jsonAdapter = new JSONAdapter(xmlService);
+  console.log(jsonAdapter.getDataInJSON());
+  
