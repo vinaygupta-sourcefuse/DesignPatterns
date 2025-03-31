@@ -11,6 +11,11 @@ export class SingletonService{
     }
 }
 
+const SingletonServiceInstance1 = SingletonService.getInstance();
+const SingletonServiceInstance2 = SingletonService.getInstance();
+console.log(SingletonServiceInstance1 === SingletonServiceInstance2); // True (same instance)
+
+
 /*
 * LAZY INITIALIZATION
 
